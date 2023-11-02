@@ -7,13 +7,21 @@
 /* Add this style for the logo */
 
 </style>
-<img src="./images/meowLogo.png" alt="Meowing Cat" width="200">
+<!-- <img src="./images/meowLogo.png" alt="Meowing Cat" width="200"> -->
 
-<!-- START OF VUE CODE -->
+<!-- START OF VUE CODEEEEEEEEEEEEEE -->
 <div class="section" id="vue-target" v-cloak> 
   <!-- <h1>blank</h1> -->
   <!-- Put here your Vue.js template -->
-  <!-- <div>HI max </div> -->
+  <div class="message">
+    <div class="message-header">
+      Welcome! 
+    </div>
+    <div class="message-body">
+      The meow project is in development. Please use the temporary login "temp" w/ password "1234" for now! 
+    </div>
+  </div>
+  
 
   <div class="field" v-if="reply_status==false">
     <input class="input" type="text" placeholder="whats on your mind?" v-model="content" /> 
@@ -23,6 +31,7 @@
       <button class="button is-link" @click="add_meow">Publish!</button>
     </div>
   </div>
+  
   <div class="columns" >
     <!-- YOUR FEED -->
     <table>
@@ -355,6 +364,8 @@
 
 
     </div>
+
+    <!-- END OF MEOW FILTER  -->
   </div>
 
 </div>

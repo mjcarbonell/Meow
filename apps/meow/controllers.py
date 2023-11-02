@@ -43,11 +43,16 @@ MAX_RESULTS = 20 # Maximum number of returned meows.
 @action('index')
 @action.uses('index.html', db, url_signer)
 def index():
-
+    user_email = None
+    if get_user_email() == None:
+        user_email = "temp@gmail.com"
+    else:
+        user_email = get_user_email()
     # return list of people the current user follows 
+    print("after index") 
     return dict(
         # COMPLETE: return here any signed URLs you need.
-        current=get_user_email(),
+        current=user_email,
         get_users_url = URL('get_users', signer=url_signer),
         follow_url=URL('set_follow', signer=url_signer),
         unfollow_url=URL('set_unfollow', signer=url_signer),
@@ -55,24 +60,33 @@ def index():
     )
 
 @action("get_users")
-@action.uses(db, auth.user)
+@action.uses(db)
 def get_users():
     # Implement. 
+    user_email = None
+    if get_user_email() == None:
+        user_email = "temp@gmail.com"
+    else:
+        user_email = get_user_email()
     rows = db(db.auth_user.username).select()    
     meows = db(db.meow.author >= 0).select()
-    current = get_user_email()
+    current = user_email
     currentUser = "" 
     for i in rows: 
         if(current == i.email):
             currentUser = i.username
-        
     # print(currentRow.email)    
-    followList = db(db.follow.user_email == get_user_email()).select() 
+    followList = db(db.follow.user_email == user_email).select() 
     return dict(rows=rows, current=current, followList=followList, meows=meows, currentUser=currentUser)
 
 @action("set_follow", method="POST")
-@action.uses(db, auth.user, url_signer.verify())
+@action.uses(db, url_signer.verify())
 def set_follow():
+    user_email = None
+    if get_user_email() == None:
+        user_email = "temp@gmail.com"
+    else:
+        user_email = get_user_email()
     user_name = request.json.get('user_name')
     uid = request.json.get('uid') 
     # Check if the user_name already exists in the database
@@ -94,7 +108,7 @@ def set_unfollow():
     return "ok"
 
 @action('add_meow', method="POST")
-@action.uses(db, auth.user, url_signer.verify())
+@action.uses(db, url_signer.verify())
 def add_meow():
     user_name = request.json.get('user_name')
     content = request.json.get('content')

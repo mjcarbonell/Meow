@@ -65,9 +65,9 @@ let init = (app) => {
                 app.assignMeows(); 
                 
         }) 
-        console.log("RESPONSE");
-        console.log(app.vue.followList);
-        console.log(app.vue.rows);
+        // console.log("RESPONSE");
+        // console.log(app.vue.followList);
+        // console.log(app.vue.rows);
     };
 
     app.set_unfollow = function (row_idx) {
